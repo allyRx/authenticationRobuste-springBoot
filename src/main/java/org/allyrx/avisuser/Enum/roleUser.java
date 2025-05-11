@@ -1,9 +1,7 @@
 package org.allyrx.avisuser.Enum;
 
 public enum roleUser {
-    UTILISATEUR(1),
-    ADMINISTRATEUR(2),
-    ;
+    UTILISATEUR,
+    ADMINISTRATEUR
 
-    roleUser(int i) {}
 }
