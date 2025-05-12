@@ -1,7 +1,6 @@
 package org.allyrx.avisuser.Service;
 
 import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.allyrx.avisuser.Entites.Role;
 import org.allyrx.avisuser.Entites.User;
@@ -66,7 +65,6 @@ public class userService  implements UserDetailsService {
 
        //verification de l'expiration et l'activation
         if(Instant.now().isAfter(validation.getExpireAt())){
-            log.info("code  expired");
             throw new RuntimeException("code  expired");
         }
 

@@ -2,7 +2,6 @@ package org.allyrx.avisuser.Controller;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.allyrx.avisuser.DTO.AuthenticationDto;
 import org.allyrx.avisuser.Entites.User;

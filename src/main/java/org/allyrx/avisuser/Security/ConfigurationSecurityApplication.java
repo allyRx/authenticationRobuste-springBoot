@@ -1,8 +1,5 @@
 package org.allyrx.avisuser.Security;
 
-
-import org.allyrx.avisuser.Repository.userRepository;
-import org.allyrx.avisuser.Service.userService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
