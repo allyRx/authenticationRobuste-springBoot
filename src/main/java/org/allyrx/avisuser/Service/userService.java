@@ -1,12 +1,16 @@
 package org.allyrx.avisuser.Service;
 
 import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.allyrx.avisuser.Entites.Role;
 import org.allyrx.avisuser.Entites.User;
 import org.allyrx.avisuser.Entites.Validation;
 import org.allyrx.avisuser.Enum.roleUser;
 import org.allyrx.avisuser.Repository.userRepository;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -18,12 +22,11 @@ import java.util.Optional;
 @Slf4j
 @Service
 @AllArgsConstructor
-public class userService {
-    private final userRepository userRepository;
+public class userService  implements UserDetailsService {
+    private  userRepository userRepository;
     private validationService validationService;
     //Injection du methode de decryptage
     private BCryptPasswordEncoder passwordEncoder;
-
 
     public void createUser(User user){
 
@@ -32,7 +35,7 @@ public class userService {
             throw new RuntimeException("Email not valid");
         }
 
-       Optional <User> findUser = Optional.ofNullable(userRepository.findByEmail(user.getEmail()));
+       Optional <User> findUser = userRepository.findByEmail(user.getEmail());
         if(findUser.isPresent()){
             throw new RuntimeException("User already exists");
         }
@@ -73,6 +76,15 @@ public class userService {
         //changer en true l'enabled de l'user
         userFound.setEnabled(true);
         userRepository.save(userFound);
+        validation.setCode(null);
     }
 
+    //recuperation d'user details par email
+    @Override
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        return userRepository
+                .findByEmail(username)
+                .orElseThrow(()-> new UsernameNotFoundException("user not found"));
+
+    }
 }

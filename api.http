@@ -11,9 +11,18 @@ Content-Type: application/json
       "username": "albert"
 }
 ###
-POST localhost:8080/api/user/activation
+POST localhost:8080/api/activation
 Content-Type: application/json
 
 {
-    "code": "119343"
+    "code": "958746"
+}
+
+###
+POST localhost:8080/api/login
+Content-Type: application/json
+
+{
+  "email" : "admin@allyrx.com",
+  "password": "123456"
 }
