@@ -1,12 +1,19 @@
-POST http://localhost:8080/api/user/2
+POST http://localhost:8080/api/user/752
 Accept: application/json
 
 ###
-POST localhost:8080/api/user
+POST localhost:8080/api/inscription
 Content-Type: application/json
 
 {
-      "email" : "albert@mail.mg",
+      "email" : "admin@allyrx.com",
       "password": "123456",
       "username": "albert"
+}
+###
+POST localhost:8080/api/user/activation
+Content-Type: application/json
+
+{
+    "code": "119343"
 }

@@ -23,13 +23,14 @@ public class ConfigurationSecurityApplication {
                         .csrf(AbstractHttpConfigurer::disable)
                         .authorizeHttpRequests(
                                 auth -> auth
-                                        .requestMatchers(HttpMethod.POST , "/user").permitAll()
+                                        .requestMatchers(HttpMethod.POST , "/inscription").permitAll()
+                                        .requestMatchers(HttpMethod.POST , "/activation").permitAll()
                                         .anyRequest().authenticated()
 
                         ).build();
     }
 
-    //Decrypter le mot de passe
+    //crypter le mot de passe
     @Bean
     public BCryptPasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
