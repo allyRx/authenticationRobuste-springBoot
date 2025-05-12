@@ -1,7 +1,6 @@
 package org.allyrx.avisuser.Controller;
 
 import lombok.AllArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 import org.allyrx.avisuser.Entites.User;
 import org.allyrx.avisuser.Service.userService;
 import org.springframework.web.bind.annotation.*;
