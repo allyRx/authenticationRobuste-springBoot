@@ -7,7 +7,6 @@ import org.allyrx.avisuser.Entites.User;
 import org.allyrx.avisuser.Entites.Validation;
 import org.allyrx.avisuser.Enum.roleUser;
 import org.allyrx.avisuser.Repository.userRepository;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
