@@ -5,6 +5,7 @@ import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
 import org.allyrx.avisuser.DTO.AuthenticationDto;
 import org.allyrx.avisuser.Entites.User;
+import org.allyrx.avisuser.Security.JwtService;
 import org.allyrx.avisuser.Service.userService;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -22,7 +23,7 @@ import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 public class userController {
 
     private  userService userService;
-
+    private JwtService jwtService;
     //Injection pour gerer l'authentification
     private AuthenticationManager authenticationManager;
 
@@ -50,6 +51,9 @@ public class userController {
                 new UsernamePasswordAuthenticationToken(authenticationDto.email() , authenticationDto.password())
         );
        log.info("authenticated user: {}", authentication.isAuthenticated());
+       if(authentication.isAuthenticated()){
+           jwtService.generateJwtToken(authenticationDto.email());
+       }
       return  null;
     }
 }
