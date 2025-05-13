@@ -52,4 +52,12 @@ public class JwtService {
         return Keys.hmacShaKeyFor(decode);
 
     }
+
+    public String ExtractUsername(String token) {
+        return null;
+    }
+
+    public Boolean verifyExpiration(String token) {
+        return true;
+    }
 }

@@ -26,3 +26,12 @@ Content-Type: application/json
   "email" : "admin@allyrx.com",
   "password": "123456"
 }
+
+###
+POST localhost:8080/api/avis
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJub20iOiJhbGJlcnQiLCJlbWFpbCI6ImFkbWluQGFsbHlyeC5jb20ifQ.yyPR9dxLSCdyvBHWLkimifhHt9aS9FdzSRuND8s3AlY"
+
+{
+  "avis" : "ceci est mon avis"
+}
