@@ -51,9 +51,9 @@ public class userController {
                 new UsernamePasswordAuthenticationToken(authenticationDto.email() , authenticationDto.password())
         );
        log.info("authenticated user: {}", authentication.isAuthenticated());
-       if(authentication.isAuthenticated()){
-           jwtService.generateJwtToken(authenticationDto.email());
+       if(!authentication.isAuthenticated()){
+          throw  new RuntimeException("Authentication failed");
        }
-      return  null;
+        return jwtService.generateJwtToken(authenticationDto.email());
     }
 }

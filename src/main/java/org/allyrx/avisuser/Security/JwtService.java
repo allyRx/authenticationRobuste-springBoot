@@ -8,15 +8,11 @@ import lombok.AllArgsConstructor;
 import org.allyrx.avisuser.Entites.User;
 import org.allyrx.avisuser.Service.userService;
 import org.springframework.stereotype.Service;
-
-import javax.crypto.spec.SecretKeySpec;
-import java.nio.charset.StandardCharsets;
 import java.security.Key;
-import java.security.spec.KeySpec;
-import java.time.Instant;
-import java.util.Base64;
+
 import java.util.Date;
 import java.util.Map;
+import java.util.concurrent.TimeUnit;
 
 @Service
 @AllArgsConstructor
@@ -34,25 +30,26 @@ public class JwtService {
     private Map<String, String> generateJwt(User user) {
 
         //Informations qu'on aime envoyer avec le token dans un json
-        Map<String ,String> claim = Map.of(
+        final  Map<String ,String> claims = Map.of(
                 "email" , user.getEmail(),
                 "nom" , user.getUsername()
         );
+        final long currentTime = System.currentTimeMillis();
+        final long expiration = currentTime + TimeUnit.MINUTES.toSeconds(30);
         String token = Jwts.builder()
-                .issuedAt(new Date(System.currentTimeMillis())) //Date d'emission
-                .expiration(new Date(System.currentTimeMillis() + 60 * 60 * 1000)) //temps d'expiration
-                .subject(user.getEmail()) //sujet du token pour l'user
-                .claims(claim) //informations envoyer avec le token
-                .signWith(getKey()) //signature du cle secrete generer par getKey((
+                .setIssuedAt(new Date(currentTime)) //Date d'emission
+                .setExpiration(new Date(expiration)) //temps d'expiration
+                .setSubject(user.getEmail()) //sujet du token pour l'user
+                .setClaims(claims) //informations envoyer avec le token
+                .signWith(getKey() , SignatureAlgorithm.HS256) //signature du cle secrete generer par getKey((
                 .compact(); //creer le token string en finale
-        return  Map.of("Bearer" , token);
+        return  Map.of("bearer" , token);
     }
 
     //codage du cle secrete
     private Key getKey() {
-//      final byte[] decode =  Decoders.BASE64.decode(SECRET_ENCRYPTION_KEY);
-//        return Keys.hmacShaKeyFor(decode);
-      final byte[] decode =  Base64.getDecoder().decode(SECRET_ENCRYPTION_KEY.getBytes(StandardCharsets.UTF_8));
-        return new SecretKeySpec( decode, "HmacSHA256");
+      final byte[] decode =  Decoders.BASE64.decode(SECRET_ENCRYPTION_KEY);
+        return Keys.hmacShaKeyFor(decode);
+
     }
 }
